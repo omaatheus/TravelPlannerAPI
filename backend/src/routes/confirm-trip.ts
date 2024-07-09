@@ -35,7 +35,7 @@ export async function confirmTrip(app: FastifyInstance) {
         }
 
         if (trip.isConfirmed) {
-            return reply.redirect('') //colocar link para redirecionar
+            return reply.redirect(`http://localhost:3000/trips/${tripId}`) //colocar link para redirecionar
         }
 
         await prisma.trip.update({
@@ -59,7 +59,7 @@ export async function confirmTrip(app: FastifyInstance) {
         await Promise.all( //promisse all é uma função que executa todas as promisses ao mesmo tempo, ou seja vou enviar todos emails ao mesmo tempo
             trip.participants.map(async (participant) => {
 
-                const confirmationLink = `http://localhost:3333/trips/${trip.id}/confirm/${participant.id}`
+                const confirmationLink = `http://localhost:3333/participants/${participant.id}/confirm`
 
                 const message = await mail.sendMail({ // aqui eu envio o email
                     from: { // quem está enviando o email
@@ -92,7 +92,7 @@ export async function confirmTrip(app: FastifyInstance) {
             })
         )
 
-        return reply.redirect('')
+        return reply.redirect(`http://localhost:3000/trips/${tripId}`)
         
     })
 
