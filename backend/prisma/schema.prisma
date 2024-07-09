@@ -11,12 +11,27 @@ datasource db {
 }
 
 model Trip {
-  id          String   @id @default(cuid()) // id é uma coluna de identificação
+  id          String   @id @default(uuid()) // id é uma coluna de identificação
   destination String
   starts_at   DateTime
   ends_at     DateTime
   isConfirmed Boolean  @default(false) // isConfirmed é uma coluna de confirmação
   created_at  DateTime @default(now()) // created_at é uma coluna de data de criação
 
+  participants Participant[] //uma viagem pode ter varios participantes
+
   @@map("trips") // nome da tabela no banco de dados
+}
+
+model Participant {
+  id          String  @id @default(uuid())
+  name        String?
+  email       String
+  isConfirmed Boolean @default(false)
+  isOwner     Boolean @default(false)
+  trip_id     String
+
+  trip Trip @relation(fields: [trip_id], references: [id])
+
+  @@map("participants")
 }
