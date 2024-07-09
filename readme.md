@@ -6,6 +6,8 @@ Uma API para gerenciar um planejador de viagens.
 
 - **FUNÇÕES**
   - Cadastrar Viagens, emails e confirmações;
+  - Cadastro de atividades da viagem;
+  - Cadastro de Links relacionados a viagem;
   - Envio de emails;
   - Robusto.
 
