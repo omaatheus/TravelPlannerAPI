@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Trip {
+  id          String   @id @default(cuid()) // id é uma coluna de identificação
+  destination String
+  starts_at   DateTime
+  ends_at     DateTime
+  isConfirmed Boolean  @default(false) // isConfirmed é uma coluna de confirmação
+  created_at  DateTime @default(now()) // created_at é uma coluna de data de criação
+
+  @@map("trips") // nome da tabela no banco de dados
+}
