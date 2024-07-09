@@ -1,16 +1,13 @@
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import dayjs from "dayjs";
+import { dayjs } from '../lib/dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { getMailClient } from "../lib/mail";
 import nodemailer from 'nodemailer'
 import { z } from "zod"; 
 import { prisma } from "../lib/prisma";
 import { get } from "http";
-import 'dayjs/locale/pt-br'
 
-dayjs.locale('pt-br')
-dayjs.extend(localizedFormat)
 
 export async function createTrip(app: FastifyInstance) { // aqui eu crio uma função que recebe um app do tipo FastifyInstance
     app.withTypeProvider<ZodTypeProvider>().post('/trips', // aqui eu defino o tipo de retorno do post que é um zod
@@ -67,7 +64,7 @@ export async function createTrip(app: FastifyInstance) { // aqui eu crio uma fun
         })
 
         const formattedStartDate = dayjs(starts_at).format('LL') // aqui eu formato a data de inicio
-        const formattedEndDate = dayjs(starts_at).format('LL') // aqui eu formato a data de inicio
+        const formattedEndDate = dayjs(ends_at).format('LL') // aqui eu formato a data de inicio
 
         const confirmationLink = `http://localhost:3333/trips/${trip.id}/confirm`
 
@@ -75,8 +72,8 @@ export async function createTrip(app: FastifyInstance) { // aqui eu crio uma fun
 
         const message = await mail.sendMail({ // aqui eu envio o email
             from: { // quem está enviando o email
-                name: 'Trip Planner',
-                address: 'oi@planner'
+                name: 'Equipe Travel Planner',
+                address: 'auxiliar@travelplanner.com'
             },
             to: {   // quem está recebendo o email
                 name: owner_name,

@@ -7,16 +7,16 @@ import cors from '@fastify/cors'
 
 const app = fastify()
 
-app.register(cors, {
+app.register(cors, { // estou definindo que qualquer origem pode acessar a minha API
     origin: '*',
 })
 
-app.setValidatorCompiler(validatorCompiler)
-app.setSerializerCompiler(serializerCompiler)
+app.setValidatorCompiler(validatorCompiler) // estou definindo o compilador de validação
+app.setSerializerCompiler(serializerCompiler) // estou definindo o compilador de serialização
 
-app.register(createTrip)
+app.register(createTrip) 
 app.register(confirmTrip)
 
 app.listen({ port: 3333 }, () => { 
-    console.log('Server is running on port 3333')
+    console.log('<-------------| 🚀 | Server is running on port 3333 |------------->')
 })
