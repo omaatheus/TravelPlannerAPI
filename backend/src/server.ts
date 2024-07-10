@@ -9,6 +9,11 @@ import { createActivity } from "./routes/create-activity";
 import { getActivity } from "./routes/get-activities";
 import { createLink } from "./routes/create-link";
 import { getLinks } from "./routes/get-links";
+import { getParticipants } from "./routes/get-participan";
+import { createInvite } from "./routes/create-invite";
+import { updateTrip } from "./routes/update-trip";
+import { getTripDetails } from "./routes/get-trip-details";
+import { getParticipant } from "./routes/get-participant";
 
 const app = fastify()
 
@@ -19,13 +24,32 @@ app.register(cors, { // estou definindo que qualquer origem pode acessar a minha
 app.setValidatorCompiler(validatorCompiler) // estou definindo o compilador de validação
 app.setSerializerCompiler(serializerCompiler) // estou definindo o compilador de serialização
 
+//-------------------------------------------------------------| Rotas |-------------------------------------------------------------//
+
+// Rotas de criação de viagem
 app.register(createTrip) 
 app.register(confirmTrip)
+app.register(updateTrip)
+app.register(getTripDetails)
+
+// Rotas de participantes
 app.register(confirmParticipant)
+app.register(getParticipants)
+app.register(getParticipant)
+
+// Rotas de atividades
 app.register(createActivity)
 app.register(getActivity)
+
+// Rotas de links
 app.register(createLink)
 app.register(getLinks)
+
+// Rotas de convites
+app.register(createInvite)
+
+
+//-------------------------------------------------------------| Server |-------------------------------------------------------------//
 
 app.listen({ port: 3333 }, () => { 
     console.log('<-------------| 🚀 | Server is running on port 3333 |------------->')
