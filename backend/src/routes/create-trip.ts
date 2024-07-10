@@ -7,6 +7,7 @@ import nodemailer from 'nodemailer'
 import { z } from "zod"; 
 import { prisma } from "../lib/prisma";
 import { get } from "http";
+import { ClientError } from "../errors/client-error";
 
 
 export async function createTrip(app: FastifyInstance) { // aqui eu crio uma função que recebe um app do tipo FastifyInstance
@@ -27,11 +28,11 @@ export async function createTrip(app: FastifyInstance) { // aqui eu crio uma fun
         const { destination, starts_at, ends_at, owner_name, owner_email, emails_to_invite } = request.body;
 
         if (dayjs(starts_at).isBefore(new Date())) { //se a data de inicio for antes de hoje
-            throw new Error('Invalid start date')
+            throw new ClientError('Invalid start date')
         }
 
         if(dayjs(ends_at).isBefore(starts_at)) { // se a data de fim for antes da data de inicio
-            throw new Error('Invalid end date')
+            throw new ClientError('Invalid end date')
         }
 
         
