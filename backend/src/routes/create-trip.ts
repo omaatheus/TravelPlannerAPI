@@ -8,6 +8,7 @@ import { z } from "zod";
 import { prisma } from "../lib/prisma";
 import { get } from "http";
 import { ClientError } from "../errors/client-error";
+import { env } from "../env";
 
 
 export async function createTrip(app: FastifyInstance) { // aqui eu crio uma função que recebe um app do tipo FastifyInstance
@@ -67,7 +68,7 @@ export async function createTrip(app: FastifyInstance) { // aqui eu crio uma fun
         const formattedStartDate = dayjs(starts_at).format('LL') // aqui eu formato a data de inicio
         const formattedEndDate = dayjs(ends_at).format('LL') // aqui eu formato a data de inicio
 
-        const confirmationLink = `http://localhost:3333/trips/${trip.id}/confirm`
+        const confirmationLink = `${env.API_BASE_URL}/trips/${trip.id}/confirm`
 
         const mail = await getMailClient() // aqui eu pego o mail client
 
