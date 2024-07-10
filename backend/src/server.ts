@@ -1,20 +1,27 @@
 import fastify from "fastify";
-import { prisma } from "./lib/prisma";
+import cors from '@fastify/cors'
+
+import { serializerCompiler, validatorCompiler}  from "fastify-type-provider-zod";
+
 import { createTrip } from "./routes/create-trip";
 import { confirmTrip } from "./routes/confirm-trip";
-import { confirmParticipant } from "./routes/confirm-participant";
-import { serializerCompiler, validatorCompiler}  from "fastify-type-provider-zod";
-import cors from '@fastify/cors'
-import { createActivity } from "./routes/create-activity";
-import { getActivity } from "./routes/get-activities";
-import { createLink } from "./routes/create-link";
-import { getLinks } from "./routes/get-links";
-import { getParticipants } from "./routes/get-participan";
-import { createInvite } from "./routes/create-invite";
 import { updateTrip } from "./routes/update-trip";
 import { getTripDetails } from "./routes/get-trip-details";
+
+import { confirmParticipant } from "./routes/confirm-participant";
+import { getParticipants } from "./routes/get-participan";
 import { getParticipant } from "./routes/get-participant";
+
+import { createActivity } from "./routes/create-activity";
+import { getActivity } from "./routes/get-activities";
+
+import { createLink } from "./routes/create-link";
+import { getLinks } from "./routes/get-links";
+
+import { createInvite } from "./routes/create-invite";
+
 import { errorHandler } from "./error-handler";
+
 import { env } from "./env";
 
 const app = fastify()
